@@ -1,0 +1,23 @@
+.xr-form-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+// I am using !important only because I don't want to spend time 
+// adjusting the MUI component settings!
+.xr-form-input,
+.xr-form-select {
+  width: 200px !important;
+  margin: 8px !important;
+}
+
+.form-button {
+  background: #D500F9 !important;
+  color: white !important;
+}
