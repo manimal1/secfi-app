@@ -146,16 +146,18 @@ class XRCalculator extends Component {
           }}
         />
         <Spinner loading={isFetching} />
-        <XRHeader
-          {...{
-            toCurrencyValue,
-            toCurrencyName,
-            fromCurrencyValue,
-            fromCurrencyName,
-            errorText
-          }}
-        />
-        {xrChartValues && (
+        {!isFetching && (
+          <XRHeader
+            {...{
+              toCurrencyValue,
+              toCurrencyName,
+              fromCurrencyValue,
+              fromCurrencyName,
+              errorText
+            }}
+          />
+        )}
+        {!isFetching && xrChartValues && (
           <XRChart
             {...{
               xrChartValues,
