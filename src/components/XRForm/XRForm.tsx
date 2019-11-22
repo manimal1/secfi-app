@@ -34,6 +34,7 @@ const XRForm: React.FC<XRFormProps> = props => {
       <div className="xr-form">
         <div className="xr-form-input-row">
           <TextField
+            type="number"
             id="from-currency-input"
             className="xr-form-input"
             label="Amount"
