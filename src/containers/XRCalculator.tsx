@@ -26,6 +26,26 @@ class XRCalculator extends Component {
     }
   };
 
+  // if user only updates XR amount and not currencies, perform XR calculation without API call
+  componentDidUpdate(prevProps: any, prevState: any) {
+    const {
+      fromCurrencyValue,
+      fromCurrencyCode,
+      toCurrencyCode,
+      cache
+    } = this.state;
+    if (
+      prevState.fromCurrencyValue !== fromCurrencyValue &&
+      (!!fromCurrencyCode || !!toCurrencyCode)
+    ) {
+      if (this.isXrCached()) {
+        return this.setState({
+          toCurrencyValue: this.calculateXrValue(fromCurrencyValue, cache.xRate)
+        });
+      }
+    }
+  }
+
   onChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void => {
@@ -81,21 +101,12 @@ class XRCalculator extends Component {
   };
 
   isXrCached = (): boolean => {
-    const {
-      fromCurrencyCode,
-      toCurrencyCode,
-      fromCurrencyValue,
-      cache
-    } = this.state;
+    const { fromCurrencyCode, toCurrencyCode, cache } = this.state;
 
     if (
       fromCurrencyCode === cache.fromCurrencyCode &&
       toCurrencyCode === cache.toCurrencyCode
     ) {
-      if (fromCurrencyValue === cache.fromCurrencyValue) return true;
-      this.setState({
-        toCurrencyValue: this.calculateXrValue(fromCurrencyValue, cache.xRate)
-      });
       return true;
     }
     return false;
